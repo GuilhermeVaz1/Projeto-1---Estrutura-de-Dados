@@ -13,8 +13,8 @@ public:
     //Constructor generico
 
     Aluno(){
-        this->nome = "";
-        this->matricula = 2023999;
+        this->nome = " ";
+        this->matricula = 0;
         this->aval1 = 0.0;
         this->aval2 = 0.0;
     }
@@ -38,7 +38,6 @@ public:
     //Destructor
 
     ~Aluno(){
-        delete this;
     }
 
     //Getters
