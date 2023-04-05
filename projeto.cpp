@@ -5,6 +5,8 @@ Data: 17/03/2023
 */
 
 #include "alunos.h"
+#include <fstream>
+#include <sstream>
 
 struct Node{
     Aluno data;
@@ -173,6 +175,29 @@ void print_alunos(){
     }
 }
 
+void load_alunos(){
+    std::string palavra, linha;
+    std::ifstream arquivo;
+    Aluno a;
+    arquivo.open("C:/Users/guisn/Documents/Estrutura-de-Dados/Projeto-1---Estrutura-de-Dados/alunos.csv", std::ios::in);
+    getline(arquivo, linha);
+    while(getline(arquivo, linha)){
+        std::stringstream str (linha);
+        getline(str, palavra, ',');
+        a.set_nome(palavra);
+        getline(str, palavra, ',');
+        a.set_matricula(std::stoi(palavra));
+        getline(str, palavra, ',');
+        a.set_aval1(std::stof(palavra));
+        getline(str, palavra, ',');
+        a.set_aval2(std::stof(palavra));
+        a.print();
+        addToEnd(a);
+    }
+    arquivo.close();
+    system("pause");
+}
+
 int main(void){
     using namespace std;
     int escolha;
@@ -188,6 +213,8 @@ int main(void){
         cout << "Ver alunos - 5" << endl;
         cout << "Remover do fim - 6" << endl;
         cout << "Remover do inicio - 7" << endl;
+        cout << "Carregar alunos.csv - 8" << endl;
+        cout << "Sair - 9" << endl;
         cout << "-----> ";
         cin >> escolha;
         switch(escolha){
@@ -216,7 +243,6 @@ int main(void){
                 break;
 
             case 5:
-                system("cls");
                 print_alunos();
                 break;
 
@@ -226,6 +252,14 @@ int main(void){
 
             case 7:
                 removeFromBeginning();
+                break;
+
+            case 8:
+                load_alunos();
+                break;
+
+            case 9:
+                exit(0);
                 break;
 
             default:
