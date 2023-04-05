@@ -27,6 +27,17 @@ Node* createNode(Aluno data){ // cria e devolva um nó, a partir de um elemento
     return newNode;
 }
 
+void addToBeginning(Aluno data){
+    Node* newNode = createNode(data);
+    if(dequeIsEmpty()){
+        HEAD = TAIL = newNode;
+    }else{
+        newNode->next = HEAD;
+        HEAD->prev = newNode;
+        HEAD = newNode;
+    }
+}
+
 void addToEnd(Aluno data){
     Node* newNode = createNode(data);
     if(dequeIsEmpty()){
@@ -35,6 +46,30 @@ void addToEnd(Aluno data){
         newNode->prev = TAIL;
         TAIL->next = newNode;
         TAIL = newNode;
+    }
+}
+
+void removeFromBeginning(){
+    using namespace std;
+    if(dequeIsEmpty()){
+        cout << "Lista vazia!" << endl;
+    }else{
+        Node* nodeToRemove = HEAD;
+        HEAD = HEAD->next;
+        HEAD->prev = NULL;
+        delete nodeToRemove;
+    }
+}
+
+void removeFromEnd(){
+    using namespace std;
+    if(dequeIsEmpty()){
+        cout << "Lista vazia!" << endl;
+    }else{
+        Node* nodeToRemove = TAIL;
+        TAIL = TAIL->prev;
+        TAIL->next = NULL;
+        delete nodeToRemove;
     }
 }
 
@@ -53,7 +88,11 @@ void add_aluno(){
     cout << "Insira a nota 2 do Aluno: ";
     cin >> aval2;
     Aluno novoAluno(nome, matricula, aval1, aval2);
-    addToEnd(novoAluno);
+    cout << "Adicionar ao fim - 1 (padrao) ou inicio - 2" << endl;
+    int escolha;
+    cin >> escolha;
+    if(escolha != 1) addToBeginning(novoAluno);
+    else addToEnd(novoAluno);
 }
 
 Node* search_node(){
@@ -147,6 +186,8 @@ int main(void){
         cout << "Procurar aluno - 3" << endl;
         cout << "Editar aluno - 4" << endl;
         cout << "Ver alunos - 5" << endl;
+        cout << "Remover do fim - 6" << endl;
+        cout << "Remover do inicio - 7" << endl;
         cout << "-----> ";
         cin >> escolha;
         switch(escolha){
@@ -177,6 +218,14 @@ int main(void){
             case 5:
                 system("cls");
                 print_alunos();
+                break;
+
+            case 6:
+                removeFromEnd();
+                break;
+
+            case 7:
+                removeFromBeginning();
                 break;
 
             default:
