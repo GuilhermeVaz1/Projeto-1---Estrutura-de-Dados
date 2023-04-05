@@ -135,8 +135,12 @@ Node* search_node(){
 }
 
 void remove_aluno(){
+    using namespace std;
+    if(dequeIsEmpty()){
+        cout << "Lista vazia!" << endl;
+    }
     Node* nodeToRemove = search_node();
-    if(!nodeToRemove) return;
+    if(nodeToRemove == NULL) return;
     if(nodeToRemove->next != NULL){
         nodeToRemove->next->prev = nodeToRemove->prev;
     }
